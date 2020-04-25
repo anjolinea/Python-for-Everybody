@@ -7,7 +7,7 @@ inputvalue = input("Enter a value: ")
 
 while True:
     try:
-        if inputvaue == "done":
+        if inputvalue == "done":
             average = total / count
             print(total, count, average)
             break
