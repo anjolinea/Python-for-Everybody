@@ -24,7 +24,7 @@ while True:
                 minvalue = int(inputvalue)
             inputvalue = input("Enter a value: ")
     except:
-        print("Invalid value")
+        print("Invalid input")
         inputvalue = input("Enter a value: ")
 
 print("Total",total, "Count",count,"MinValue", minvalue,"MaxValue", maxvalue)
