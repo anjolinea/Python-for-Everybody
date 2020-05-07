@@ -10,4 +10,5 @@ for line in fhand:
         hour = words[5].split(":")[0]
         hours_dict[hour] = hours_dict.get(hour, 0) + 1
 
-print(sorted(hours_dict.items()))
+for hours_address, hours_count in sorted(hours_dict.items()):
+    print(hours_address, hours_count)
