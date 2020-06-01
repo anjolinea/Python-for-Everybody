@@ -13,5 +13,4 @@ while True:
     else:
         moms_favourite_child = random.choice(Mothers_Children)
         dads_favourite_child = random.choice(Fathers_Children)
-        continue
 print("All done!")
