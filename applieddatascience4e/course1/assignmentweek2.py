@@ -22,4 +22,8 @@ def answer_three():
 answer_three()
 
 # Question 4
+def answer_four():
+    df["Points"] = 3*df["Gold.2"] + 2*df["Silver.2"] + df["Bronze.2"]
+    return df["Points"]
 
+answer_four()
