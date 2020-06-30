@@ -11,3 +11,15 @@ def answer_two():
     return the_answer.index.tolist()[0]
 
 answer_two()
+
+#Question 3
+def answer_three():
+    a = df[(df["Gold"]>0) & (df["Gold.1"]>0)]
+    max_compare_value = max((a["Gold"]-a["Gold.1"])/a["Gold.2"])
+    the_answer = a[(a["Gold"]-a["Gold.1"])/a["Gold.2"] == max_compare_value]
+    return the_answer.index.tolist()[0]
+
+answer_three()
+
+# Question 4
+
