@@ -27,3 +27,14 @@ def answer_four():
     return df["Points"]
 
 answer_four()
+
+# Question 5
+from statistics import mode
+def answer_five():
+    temp_1 = census_df[census_df["SUMLEV"] == 50]
+    state = mode(temp_1["STNAME"])
+    return state
+
+answer_five()
+
+# Question 6
