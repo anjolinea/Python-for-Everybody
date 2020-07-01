@@ -38,3 +38,15 @@ def answer_five():
 answer_five()
 
 # Question 6
+
+
+#Question 7
+def answer_seven():
+    df = census_df[census_df["SUMLEV"] == 50]
+    df = df.set_index("CTYNAME")
+    population_columns = ['POPESTIMATE2010','POPESTIMATE2011','POPESTIMATE2012','POPESTIMATE2013','POPESTIMATE2014','POPESTIMATE2015']
+    df["Difference"] = df[population_columns].max(axis=1) - df[population_columns].min(axis=1)
+    df = df.sort_values(by="Difference", ascending=False)
+    return df.index.tolist()[0]
+
+answer_seven()
