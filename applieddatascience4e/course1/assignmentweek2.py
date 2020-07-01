@@ -50,3 +50,12 @@ def answer_seven():
     return df.index.tolist()[0]
 
 answer_seven()
+
+# Question 8
+def answer_eight():
+    df = census_df[census_df["SUMLEV"] == 50]
+    df = df[((df["REGION"] == 1) | (df["REGION"] == 2)) & (df["CTYNAME"] == "Washington County") & (df["POPESTIMATE2015"] > df["POPESTIMATE2014"])]
+    the_answer = df[["STNAME","CTYNAME"]]
+    return the_answer.head()
+
+answer_eight()
