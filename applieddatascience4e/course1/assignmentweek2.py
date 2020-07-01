@@ -38,7 +38,14 @@ def answer_five():
 answer_five()
 
 # Question 6
+def answer_six():
+    df = census_df[census_df['SUMLEV'] == 50]
+    df = df.sort_values(by = 'CENSUS2010POP', ascending = False)
+    df = df.groupby(by='STNAME').head(3)
+    ans = df.groupby(by='STNAME').sum().sort_values(by='CENSUS2010POP' , ascending = False).index.tolist()
+    return ans[:3]
 
+answer_six()
 
 #Question 7
 def answer_seven():
