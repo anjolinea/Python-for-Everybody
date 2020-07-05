@@ -25,10 +25,9 @@ def answer_one():
 
     # third section
     ScimEn = pd.read_excel("scimagojr-3.xlsx")
-    ScimEn = ScimEn[:]
 
     # fourth section - merge the databases
-    temp_1 = pd.merge(ScimEn, energy, how="inner", left_on="Country", right_on="Country")
+    temp_1 = pd.merge(ScimEn[:15], energy, how="inner", left_on="Country", right_on="Country")
     df = pd.merge(temp_1, GDP, how="inner", left_on="Country", right_on="Country")
     df = df.set_index("Country")
     return df
