@@ -21,16 +21,16 @@ def answer_one():
     GDP = pd.read_csv("world_bank.csv", skiprows=4)
     GDP["Country Name"] = GDP["Country Name"].replace({"Korea, Rep.": "South Korea", "Iran, Islamic Rep.": "Iran","Hong Kong SAR, China": "Hong Kong"})
     GDP = GDP[['Country Name','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015']]
+    GDP = GDP.rename(columns={"Country Name": "Country"})
 
     # third section
     ScimEn = pd.read_excel("scimagojr-3.xlsx")
     ScimEn = ScimEn[:15]
 
     # fourth section - merge the databases
-    temp_1 = pd.merge(ScimEn, GDP, how="left", left_on="Country", right_on="Country Name")
+    temp_1 = pd.merge(ScimEn, GDP, how="left", left_on="Country", right_on="Country")
     df = pd.merge(temp_1, energy, how="left", left_on="Country", right_on="Country")
     df = df.set_index("Country")
-    del df["Country Name"]
     return df
 
 answer_one()
