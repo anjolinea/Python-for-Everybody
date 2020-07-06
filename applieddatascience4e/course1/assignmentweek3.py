@@ -134,3 +134,14 @@ def answer_eight():
     return the_country
 
 answer_eight()
+
+# Question 9
+def answer_nine():
+    Top15 = answer_one()
+    Top15["Predicted Population"] = (1/Top15["Energy Supply per Capita"])*Top15["Energy Supply"]
+    Top15["Citable docs per capita"] = Top15["Citable documents"]/Top15["Predicted Population"]
+    return Top15["Citable docs per capita"].corr(Top15["Energy Supply per Capita"], method="pearson")
+
+answer_nine()
+
+# Question 10
