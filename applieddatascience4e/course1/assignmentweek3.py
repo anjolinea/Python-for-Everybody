@@ -145,3 +145,73 @@ def answer_nine():
 answer_nine()
 
 # Question 10
+def answer_ten():
+    Top15 = answer_one()
+    median = np.median(Top15["% Renewable"])
+    Top15["HighRenew"] = np.where(Top15["% Renewable"] >= median, 1, 0)
+    return Top15["HighRenew"]
+
+answer_ten()
+
+# Question 11
+def answer_eleven():
+    Top15 = answer_one()
+    ContinentDict  = {'China':'Asia', 
+                  'United States':'North America', 
+                  'Japan':'Asia', 
+                  'United Kingdom':'Europe', 
+                  'Russian Federation':'Europe', 
+                  'Canada':'North America', 
+                  'Germany':'Europe', 
+                  'India':'Asia',
+                  'France':'Europe', 
+                  'South Korea':'Asia', 
+                  'Italy':'Europe', 
+                  'Spain':'Europe', 
+                  'Iran':'Asia',
+                  'Australia':'Australia', 
+                  'Brazil':'South America'}
+    Top15['Continent'] = Top15.index.to_series().map(ContinentDict)
+    Top15["Predicted Population"] = (1 / Top15["Energy Supply per Capita"]) * Top15["Energy Supply"]
+    answer = (Top15.set_index('Continent')
+             .groupby(level = 0)['Predicted Population']
+             .agg({"size": np.size, "sum":np.sum, "mean": np.mean, "std": np.std}))
+    # New way is .agg(size=np.size,sum=np.sum, mean=np.mean, std=np.std) because of new rules by Pandas
+    return answer
+
+answer_eleven()
+
+# Question 12
+def answer_twelve():
+    Top15 = answer_one()
+    ContinentDict  = {'China':'Asia', 
+                  'United States':'North America', 
+                  'Japan':'Asia', 
+                  'United Kingdom':'Europe', 
+                  'Russian Federation':'Europe', 
+                  'Canada':'North America', 
+                  'Germany':'Europe', 
+                  'India':'Asia',
+                  'France':'Europe', 
+                  'South Korea':'Asia', 
+                  'Italy':'Europe', 
+                  'Spain':'Europe', 
+                  'Iran':'Asia',
+                  'Australia':'Australia', 
+                  'Brazil':'South America'}
+    Top15['Continent'] = Top15.index.to_series().map(ContinentDict)
+    Top15["Bins"] = pd.cut(Top15["% Renewable"], 5)
+    answer = Top15.groupby(['Continent','Bins']).size()
+    return answer
+
+answer_twelve()
+
+# Question 13
+def answer_thirteen():
+    Top15 = answer_one()
+    Top15["PopEst"] = (1 / Top15["Energy Supply per Capita"]) * Top15["Energy Supply"]
+    Top15 = Top15["PopEst"].apply(lambda num: "{:,}".format(num))
+    Top15 = Top15.astype(dtype="str")
+    return Top15
+
+answer_thirteen()
