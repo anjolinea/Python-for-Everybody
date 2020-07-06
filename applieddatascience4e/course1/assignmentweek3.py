@@ -33,6 +33,7 @@ def answer_one():
     return df
 
 answer_one()
+
 # Question 2
 def answer_two():
     # first section
@@ -73,5 +74,63 @@ def answer_two():
     return df2.shape[0]-df1.shape[0]
 
 answer_two()
-# Question 3
 
+# Question 3
+def answer_three():
+    Top15 = answer_one()
+    GDP_columns = ['2006','2007','2008','2009','2010','2011','2012','2013','2014','2015']
+    Top15 = Top15[GDP_columns]
+    Top15['avgGDP'] = Top15.mean(axis=1)
+    Top15 = Top15["avgGDP"]
+    Top15 = Top15.sort_values(ascending=False)
+    return Top15
+
+answer_three()
+
+# Question 4
+def answer_four():
+    top15_S = answer_three()
+    top15_DF = answer_one()
+
+    the_country = top15_S[top15_S == top15_S[5]].index[0]
+    value2015 = top15_DF.loc[the_country].loc["2015"]
+    value2006 = top15_DF.loc[the_country].loc["2006"]
+    return value2015 - value2006
+
+answer_four()
+
+# Question 5
+def answer_five():
+    Top15 = answer_one()
+    return np.mean(Top15["Energy Supply per Capita"])
+
+answer_five()
+
+# Question 6
+def answer_six():
+    Top15 = answer_one()
+    Top15 = Top15["% Renewable"]
+    the_country = Top15[Top15 == max(Top15)]
+    answer = (the_country.index[0], the_country[0])
+    return answer
+
+answer_six()
+
+# Question 7
+def answer_seven():
+    Top15 = answer_one()
+    Top15["Ratio"] = Top15["Self-citations"]/Top15["Citations"]
+    the_country = Top15[Top15["Ratio"] == max(Top15["Ratio"])].index[0]
+    return (the_country,max(Top15["Ratio"]))
+
+answer_seven()
+
+# Question 8
+def answer_eight():
+    Top15 = answer_one()
+    Top15["Predicted Population"] = (1/Top15["Energy Supply per Capita"])*Top15["Energy Supply"]
+    Top15 = Top15["Predicted Population"].sort_values(ascending=False)
+    the_country = Top15[Top15 == Top15.iloc[2]].index[0]
+    return the_country
+
+answer_eight()
