@@ -63,3 +63,26 @@ def get_recession_bottom():
 get_recession_bottom()
 
 # Question 5
+def convert_housing_data_to_quarters():
+    # run states before this
+    df = pd.read_csv("City_Zhvi_AllHomes.csv")
+    df["State"] = df["State"].replace(states)
+    df = df.set_index(["State", "RegionName"])
+    # df.columns[0] == "RegionId", df.columns[4] == 1996-04, so 2000-01 == df.columns[49]
+    df = df.drop(df.columns[:49], axis=1)
+    for year in range(2000, 2017):
+        df[str(year)+"q1"] = df[[str(year)+"-01", str(year)+"-02", str(year)+"-03"]].mean(axis=1)
+        df[str(year)+"q2"] = df[[str(year)+"-04", str(year)+"-05", str(year)+"-06"]].mean(axis=1)
+        if year != 2016:
+            df[str(year)+"q3"] = df[[str(year)+"-07", str(year)+"-08", str(year)+"-09"]].mean(axis=1)
+            df[str(year)+"q4"] = df[[str(year)+"-10", str(year)+"-11", str(year)+"-12"]].mean(axis=1)
+        else:
+            df[str(year)+"q3"] = df[[str(year)+"-07", str(year)+"-08"]].mean(axis=1)
+            break
+    # if df.columns[0] == 2000-01, df.columns[199] == 2016-08
+    df = df.drop(df.columns[:200], axis=1)
+    return df
+
+convert_housing_data_to_quarters()
+
+# Question 6
