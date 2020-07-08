@@ -49,3 +49,17 @@ def get_recession_end():
 
 get_recession_end()
 
+# Question 4
+def get_recession_bottom():
+    df = pd.read_excel("gdplev.xls",skiprows=7)
+    df = df.rename(columns={"Unnamed: 6":"GDP", "Unnamed: 4": "Quarter"})
+    df = df[["Quarter", "GDP"]]
+    place_beg = df[df["Quarter"] == "2008q3"].index.tolist()[0]
+    place_end = df[df["Quarter"] == "2009q4"].index.tolist()[0]
+    df_new = df[place_beg : place_end + 1]
+    answer = df_new[df_new["GDP"] == min(df_new["GDP"])]
+    return answer["Quarter"].tolist()[0]
+
+get_recession_bottom()
+
+# Question 5
