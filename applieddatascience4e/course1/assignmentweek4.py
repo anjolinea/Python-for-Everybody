@@ -86,3 +86,46 @@ def convert_housing_data_to_quarters():
 convert_housing_data_to_quarters()
 
 # Question 6
+def run_ttest():
+    '''First create new data showing the decline or growth of housing prices
+    between the recession start and the recession bottom. Then runs a ttest
+    comparing the university town values to the non-university towns values, 
+    return whether the alternative hypothesis (that the two groups are the same)
+    is true or not as well as the p-value of the confidence. 
+    
+    Return the tuple (different, p, better) where different=True if the t-test is
+    True at a p<0.01 (we reject the null hypothesis), or different=False if 
+    otherwise (we cannot reject the null hypothesis). The variable p should
+    be equal to the exact p value returned from scipy.stats.ttest_ind(). The
+    value for better should be either "university town" or "non-university town"
+    depending on which has a lower mean price ratio (which is equivilent to a
+    reduced market loss).'''
+    df = convert_housing_data_to_quarters().reset_index()
+    uni_towns = get_list_of_university_towns()
+    rec_start = "2008q3"
+    rec_bottom = "2009q2"
+    df["Change"] = df[rec_bottom] - df[rec_start]
+    in_uni = pd.merge(uni_towns, df, how="inner", left_on=["State", "RegionName"], right_on=["State", "RegionName"])
+    in_uni["Uni Check"] = True
+    in_uni = in_uni[["State", "RegionName", "Uni Check"]]
+    df2 = pd.merge(df, in_uni, how="outer", left_on=["State", "RegionName"], right_on=["State", "RegionName"])
+    df2["Uni Check"] = df2["Uni Check"].fillna(False)
+    true_uni = df2[df2["Uni Check"] == True]
+    false_uni = df2[df2["Uni Check"] == False]
+    true_uni = true_uni["Change"].dropna()
+    false_uni = false_uni["Change"].dropna()
+    statistic, pvalue = ttest_ind(true_uni, false_uni)
+    if pvalue < 0.01: 
+        different=True 
+    else: 
+        different=False
+    # lower neg score equal better
+    if true_uni.mean() > false_uni.mean():
+        better="university town"
+    else:
+        better="non-university town"
+    p = pvalue
+    return (different, p, better)
+    
+
+run_ttest()
