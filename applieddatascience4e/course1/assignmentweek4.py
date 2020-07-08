@@ -32,3 +32,16 @@ def get_recession_start():
     return answer
 
 get_recession_start()
+
+# Question 3
+def get_recession_end():
+    place_beg = df[df["Quarter"] == "2008q3"].index.tolist()[0]
+    df_new = df[place_beg - place_2000q1: ]
+    for i in range(len(df_new)):
+        if df_new["GDP"].iloc[i] < df_new["GDP"].iloc[i+1] < df_new["GDP"].iloc[i+2]:
+            answer = df_new["Quarter"].iloc[i+2]
+            break
+    return answer
+
+get_recession_end()
+
