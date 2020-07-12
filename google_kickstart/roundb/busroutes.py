@@ -10,8 +10,7 @@ while T > 0:
     line = list(map(int, line))
     line.reverse()
     # find starting point using last point
-    past_list = list(range(0, D + 1, line[0]))
-    start_point = past_list[-1]
+    start_point = list(range(0, D + 1, line[0]))[-1]
     if len(line) == 1:
         print("Case #" + str(F-T) + ":", start_point)
     else:
