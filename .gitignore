@@ -1,3 +1,3 @@
-git rm -r --cached FolderName
+git rm -r --applieddatascience4e
 git commit -m "Removed folder from repository"
 git push origin master
