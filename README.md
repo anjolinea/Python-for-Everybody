@@ -1,4 +1,4 @@
-# Python-for-Everybody
+# Python for Everybody
 Answers for Exercises for Python for Everybody by Charles Severance.
 The website for the book is https://www.py4e.com/book.php and this course can be found on www.py4e.com, EdX, and Coursera.
 
